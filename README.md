@@ -34,3 +34,5 @@ Example extractions of left singular vectors and singular values
 ![Comparison 1](Figure_1.png "Mode 0")
 ![Comparison 2](Figure_2.png "Mode 2")
 ![Comparison 3](Figure_3.png "Singular values")
+
+The user may also vary the forget factor `ff` to reduce the emphasis of data shown in the past batches for singular vector computation.
