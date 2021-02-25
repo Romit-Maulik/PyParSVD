@@ -1,5 +1,7 @@
 # PyParSVD
 
+[![DOI](https://zenodo.org/badge/342338443.svg)](https://zenodo.org/badge/latestdoi/342338443)
+
 This implementation allows for a singular value decomposition which is:
 1. Distributed using MPI4Py
 2. Streaming - data can be shown in batches to update the left singular vectors
