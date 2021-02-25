@@ -5,7 +5,7 @@ Rnum = 1000.0
 x = np.linspace(0.0,1.0,num=8192)
 dx = 1.0/np.shape(x)[0]
 
-tsteps = np.linspace(0.0,2.0,num=400)
+tsteps = np.linspace(0.0,2.0,num=800)
 dt = 2.0/np.shape(tsteps)[0]
 
 #-------------------------------------------------------------------------------------------------
@@ -49,9 +49,17 @@ num_snapshots = total_data.shape[1]
 num_dof = total_data.shape[0]
 
 # Generate serial POD with MOS
+from time import time
+# Initialize timer
+start_time = time()
+
 modes, svals = method_of_snapshots(total_data)
 np.save('Serial_Modes_MOS.npy',modes)
 np.save('Serial_SingularValues.npy',svals)
+
+end_time = time()
+
+print('Time required for serial SVD using method of snapshots', end_time-start_time)
 
 total_ranks = 6
 
@@ -59,7 +67,7 @@ npr = int(num_dof/total_ranks)
 
 # Save data
 for iteration in range(4):
-    batch_data = total_data[:,iteration*100:(iteration+1)*100]
+    batch_data = total_data[:,iteration*200:(iteration+1)*200]
 
     np.save('Batch_'+str(iteration)+'_data.npy',batch_data)
 

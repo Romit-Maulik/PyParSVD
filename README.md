@@ -1,7 +1,5 @@
 # PyParSVD
 
-[![DOI](https://zenodo.org/badge/342338443.svg)](https://zenodo.org/badge/latestdoi/342338443)
-
 This implementation allows for a singular value decomposition which is:
 1. Distributed using MPI4Py
 2. Streaming - data can be shown in batches to update the left singular vectors
@@ -35,4 +33,4 @@ Example extractions of left singular vectors and singular values
 ![Comparison 2](Figure_2.png "Mode 2")
 ![Comparison 3](Figure_3.png "Singular values")
 
-The user may also vary the forget factor `ff` to reduce the emphasis of data shown in the past batches for singular vector computation.
+Even the simple problem demonstrated here (8192 spatial points and 800 snapshots) achieves a dramatic acceleration in time to solution from serial to parallelized-streaming implementations (~25X). Note that the key advantage of the parallelized version is the lack of a data-transfer requirement in case this routine is being called from a simulation. 
