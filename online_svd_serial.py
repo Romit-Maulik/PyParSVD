@@ -50,6 +50,9 @@ class online_svd_calculator(object):
         plt.plot(self.ui[:,2],label='Mode 2')
         plt.plot(self.ui[:,3],label='Mode 3')
         plt.legend()
+        plt.title('Left singular vectors')
+        plt.xlabel('Domain')
+        plt.ylabel('U magnitude')
         plt.show()
 
         np.save('Online_Serial_POD.npy',self.ui)

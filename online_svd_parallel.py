@@ -207,12 +207,18 @@ class online_svd_calculator(object):
             plt.plot(serial[:,0],label='serial one-shot')
             plt.plot(parallel_online[:,0],label='parallel_online')
             plt.plot(serial_online[:,0],label='serial_online')
+            plt.title('U comparison - column 0')
+            plt.xlabel('Domain')
+            plt.ylabel('U magnitude')
             plt.legend()
 
             plt.figure()
             plt.plot(serial[:,2],label='serial one-shot')
             plt.plot(parallel_online[:,2],label='parallel_online')
             plt.plot(serial_online[:,2],label='serial_online')
+            plt.title('U comparison - column 2')
+            plt.xlabel('Domain')
+            plt.ylabel('U magnitude')
             plt.legend()
 
             serial_svs = np.load('Serial_SingularValues.npy')
@@ -224,6 +230,8 @@ class online_svd_calculator(object):
             plt.plot(parallel_online_svs[:self.K],label='parallel_online')
             plt.plot(serial_online_svs[:self.K],label='serial_online')
             plt.title('Singular values')
+            plt.xlabel('Index')
+            plt.ylabel('Magnitude')
             plt.legend()
             plt.show()
 
