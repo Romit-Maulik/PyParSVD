@@ -1,0 +1,37 @@
+language: python
+
+python:
+  - "3.8"
+
+install:
+    - pip3 install numpy
+    - pip3 install scipy
+    - pip3 install matplotlib
+    - pip3 install setuptools
+    - pip3 install enum34
+    - pip3 install xarray
+    - pip3 install netcdf4
+    - pip3 install psutil
+    - pip3 install tqdm
+    - pip3 install Sphinx
+    - pip3 install sphinx_rtd_theme
+    - pip3 install ecmwf_api_client
+    - pip3 install cdsapi
+    - pip3 install h5py
+    - pip3 install coveralls
+    - pip3 install coverage
+    - pip3 install future
+    - pip3 install pytest
+    - pip3 install pytest-mpi
+    - pip3 install mpi4py
+
+
+script:
+    - mpirun -n 6 python3 -m pytest --with-mpi -v
+
+after_success:
+    - coveralls
+
+branches:
+    only:
+        - feature/frameworks
