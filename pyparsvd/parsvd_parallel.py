@@ -151,7 +151,6 @@ class ParSVD_Parallel(ParSVD_Base):
 		pathname_sv = os.path.join(
 			results_dir, 'parallel_singular_values.npy')
 		np.save(pathname_sv, self._singular_values)
-		print(self.rank)
 		pathname_m = os.path.join(
 			results_dir, 'parallel_POD.npy')
 

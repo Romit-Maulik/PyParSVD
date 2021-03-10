@@ -26,9 +26,9 @@ class ParSVD_Base(object):
 		self._iteration = 0
 
 		# Initialize MPI
-		self.comm = MPI.COMM_WORLD
-		self.rank = self.comm.Get_rank()
-		self.nprocs = self.comm.Get_size()
+		self._comm = MPI.COMM_WORLD
+		self._rank = self.comm.Get_rank()
+		self._nprocs = self.comm.Get_size()
 
 
 
@@ -47,6 +47,7 @@ class ParSVD_Base(object):
 
 
 
+	@property
 	def low_rank(self):
 		return self._low_rank
 
@@ -85,8 +86,25 @@ class ParSVD_Base(object):
 
 	@property
 	def n_modes(self):
-		return self.modes.shape[-1]
-		
+		return self.singular_values.shape[-1]
+
+
+
+	@property
+	def comm(self):
+		return self._comm
+
+
+
+	@property
+	def rank(self):
+		return self._rank
+
+
+
+	@property
+	def nprocs(self):
+		return self._nprocs
 	# ---------------------------------------------------------------------------
 
 
