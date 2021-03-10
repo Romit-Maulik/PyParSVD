@@ -9,7 +9,7 @@ compiler:
 env:
     - TESTING_TAG=_mpich   WITHMPI=mpich
     - TESTING_TAG=_openmpi WITHMPI=openmpi
-    - TESTING_TAG=_serial  WITHMPI=no
+#    - TESTING_TAG=_serial  WITHMPI=no
   
 install:
     - if [[ "$WITHMPI" == "openmpi" ]]; then
@@ -41,11 +41,12 @@ install:
     - pip3 install coverage
     - pip3 install future
     - pip3 install pytest
-    
-    - if [[ "$WITHMPI" != "no" ]]; then
-        - pip3 install mpi4py
-        - pip3 install pytest-mpi
-      fi
+    - pip3 install mpi4py
+    - pip3 install pytest-mpi
+#    - if [[ "$WITHMPI" != "no" ]]; then
+#        - pip3 install mpi4py
+#        - pip3 install pytest-mpi
+#      fi
 
 
 script:
