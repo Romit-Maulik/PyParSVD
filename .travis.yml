@@ -45,7 +45,7 @@ install:
     - if [[ "$WITHMPI" != "no" ]]; then
         - pip3 install mpi4py
         - pip3 install pytest-mpi
-    fi
+      fi
 
 
 script:
