@@ -1,11 +1,16 @@
 language: python
 
 python:
-  - "3.8"
+    - "3.8"
 
 compiler:
-  - gcc
+    - gcc
 
+env:
+    - TESTING_TAG=_mpich   WITHMPI=mpich
+    - TESTING_TAG=_openmpi WITHMPI=openmpi
+    - TESTING_TAG=_serial  WITHMPI=no
+  
 install:
     - if [[ "$WITHMPI" == "openmpi" ]]; then
           sudo apt-get install -qq openmpi-bin libopenmpi-dev python-mpi4py;
@@ -36,8 +41,12 @@ install:
     - pip3 install coverage
     - pip3 install future
     - pip3 install pytest
-    - pip3 install pytest-mpi
-    - pip3 install mpi4py
+    
+    - if [[ "$WITHMPI" != "no" ]]; then
+        - pip3 install mpi4py
+        - pip3 install pytest-mpi
+    fi
+
 
 script:
     - mpirun -n 6 python3 -m pytest --with-mpi -v
