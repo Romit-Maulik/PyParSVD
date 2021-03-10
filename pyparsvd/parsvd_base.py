@@ -86,6 +86,7 @@ class ParSVD_Base(object):
 	@property
 	def n_modes(self):
 		return self.modes.shape[-1]
+		
 	# ---------------------------------------------------------------------------
 
 
