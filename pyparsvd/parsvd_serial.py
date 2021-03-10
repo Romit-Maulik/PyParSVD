@@ -57,12 +57,6 @@ class ParSVD_Serial(ParSVD_Base):
 
 
 
-	def _save(self):
-		np.save('serial_POD.npy', self._modes)
-		np.save('serial_singular_values.npy', self._singular_values)
-
-
-
 	def save(self):
 		results_dir = os.path.join(CWD, self._results_dir)
 		if not os.path.exists(results_dir):

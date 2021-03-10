@@ -48,9 +48,5 @@ def test_parallel_svd():
 
 
 
-
-
-
-
 if __name__ == '__main__':
 	test_parallel_svd()
