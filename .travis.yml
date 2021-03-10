@@ -49,7 +49,7 @@ install:
 
 
 script:
-    - mpirun -n 6 python3 -m pytest --with-mpi -v
+    - mpirun -np 6 python3 -m pytest --with-mpi -v
 
 after_success:
     - coveralls
