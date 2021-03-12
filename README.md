@@ -1,7 +1,9 @@
 # PYPARSVD
 
 [![DOI](https://zenodo.org/badge/342338443.svg)](https://zenodo.org/badge/latestdoi/342338443)
+[![Build Status](https://travis-ci.com/mengaldo/PyParSVD.svg?branch=main)](https://travis-ci.com/mengaldo/PyParSVD)
 ![Logo](readme/Logo.png "PyParSVD")
+
 
 This implementation allows for a singular value decomposition which is:
 1. Distributed using MPI4Py
