@@ -2,7 +2,7 @@
   
 <p align="center">
   <a href="http://mengaldo.github.io/PyParSVD/" target="_blank" >
-    <img alt="Python Parallel Singular Value Decomposition" src="readme/Logo.png" width="200" />
+    <img alt="Python Parallel Singular Value Decomposition" src="readme/Logo.png" width="00" />
   </a>
 </p>
 
@@ -10,6 +10,10 @@
   <!--    <a href="https://doi.org/" target="_blank">
     <img alt="JOSS DOI" src="http://joss.theoj.org/">
   </a> -->
+  
+  <a href="https://zenodo.org/badge/latestdoi/342338443" target="_blank">
+    <img alt="ZENODO" src="https://zenodo.org/badge/342338443.svg">
+  </a>
   <a href="https://github.com/mengaldo/PyParSVD/LICENSE" target="_blank">
     <img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square">
   </a>
