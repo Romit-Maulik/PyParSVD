@@ -1,7 +1,9 @@
 # PYPARSVD
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/342338443.svg)](https://zenodo.org/badge/latestdoi/342338443)
 [![Build Status](https://travis-ci.com/mengaldo/PyParSVD.svg?branch=main)](https://travis-ci.com/mengaldo/PyParSVD)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a97f1b7817bf4429b25a0c8acafcb88e)](https://www.codacy.com/gh/mengaldo/PyParSVD/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mengaldo/PyParSVD&amp;utm_campaign=Badge_Grade)
 ![Logo](readme/Logo.png "PyParSVD")
 
 
