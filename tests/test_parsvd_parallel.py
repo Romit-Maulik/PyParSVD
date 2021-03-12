@@ -41,7 +41,7 @@ def test_parallel_svd():
 
 	if ParSVD.rank == 0:
 		# modes
-		tol1 = 1e-8
+		tol1 = 1e-6
 		modes = ParSVD.modes
 		assert((np.abs(modes[10,0])   < 0.0003926734521274234+tol1) & \
 			   (np.abs(modes[10,0])   > 0.0003926734521274234-tol1))
