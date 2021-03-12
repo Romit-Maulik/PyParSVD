@@ -156,8 +156,6 @@ class ParSVD_Parallel(ParSVD_Base):
 
 		if self.rank == 0:
 			np.save(pathname_m, self._modes)
-			print(self._modes.shape)
-			print(self._modes[1,1])
 
 		self._singular_values = pathname_sv
 		self._modes = pathname_m
