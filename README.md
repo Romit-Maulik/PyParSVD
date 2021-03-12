@@ -2,7 +2,7 @@
   
 <p align="center">
   <a href="http://mengaldo.github.io/PyParSVD/" target="_blank" >
-    <img alt="Python Parallel Singular Value Decomposition" src="readme/Logo.png" width="800" />
+    <img alt="Python Parallel Singular Value Decomposition" src="readme/Logo.png" width="600" />
   </a>
 </p>
 
