@@ -1,14 +1,31 @@
 # PYPARSVD
+  
 <p align="center">
-  ![Logo](readme/Logo.png "PyParSVD")
-<p>
+  <a href="http://mengaldo.github.io/PyParSVD/" target="_blank" >
+    <img alt="Python Parallel Singular Value Decomposition" src="readme/Logo.png" width="200" />
+  </a>
+</p>
 
 <p align="center">
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![DOI](https://zenodo.org/badge/342338443.svg)](https://zenodo.org/badge/latestdoi/342338443)
-  [![Build Status](https://travis-ci.com/mengaldo/PyParSVD.svg?branch=main)](https://travis-ci.com/mengaldo/PyParSVD)
-  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a97f1b7817bf4429b25a0c8acafcb88e)](https://www.codacy.com/gh/mengaldo/PyParSVD/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mengaldo/PyParSVD&amp;utm_campaign=Badge_Grade)
-<p>
+  <!--    <a href="https://doi.org/" target="_blank">
+    <img alt="JOSS DOI" src="http://joss.theoj.org/">
+  </a> -->
+  <a href="https://github.com/mengaldo/PyParSVD/LICENSE" target="_blank">
+    <img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square">
+  </a>
+  <!--   <a href="https://badge.fury.io/py/pyspod">
+    <img src="https://badge.fury.io/py/pyspod.svg" alt="PyPI version" height="18">
+  </a> -->
+  <a href="https://travis-ci.com/mengaldo/PyParSVD" target="_blank">
+    <img alt="Build Status" src="https://travis-ci.com/mengaldo/PyParSVD.svg?branch=main">	  
+  </a>
+  <!--    <a href="https://coveralls.io/github/mathLab/PySPOD" target="_blank">
+    <img alt="Coverage Status" src="https://coveralls.io/repos/github/mathLab/PySPOD/badge.svg">
+  </a> -->
+  <a href="https://app.codacy.com/project/badge/Grade/a97f1b7817bf4429b25a0c8acafcb88e)](https://www.codacy.com/gh/mengaldo/PyParSVD/dashboard?">
+    <img src="https://app.codacy.com/project/badge/Grade/a97f1b7817bf4429b25a0c8acafcb88e"/>
+  </a>
+</p>
 
 
 This implementation allows for a singular value decomposition which is:
