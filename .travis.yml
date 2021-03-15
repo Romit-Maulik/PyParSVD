@@ -1,9 +1,28 @@
 language: python
 
 python:
-  - "3.8"
+    - "3.8"
 
+compiler:
+    - gcc
+
+env:
+    - TESTING_TAG=_mpich   WITHMPI=mpich
+    - TESTING_TAG=_openmpi WITHMPI=openmpi
+#    - TESTING_TAG=_serial  WITHMPI=no
+  
 install:
+    - if [[ "$WITHMPI" == "openmpi" ]]; then
+          sudo apt-get install -qq openmpi-bin libopenmpi-dev python-mpi4py;
+          update-alternatives --list mpi|grep "$WITHMPI" | xargs -rt sudo update-alternatives --set mpi;
+          update-alternatives --list mpirun|grep "$WITHMPI" | xargs -rt sudo update-alternatives --set mpirun;
+      fi
+    - if [[ "$WITHMPI" == "mpich" ]]; then
+          sudo apt-get install -qq mpich libmpich-dev python-mpi4py;
+          update-alternatives --list mpi|grep "$WITHMPI" | xargs -rt sudo update-alternatives --set mpi;
+          update-alternatives --list mpirun|grep "$WITHMPI" | xargs -rt sudo update-alternatives --set mpirun;
+      fi
+
     - pip3 install numpy
     - pip3 install scipy
     - pip3 install matplotlib
@@ -22,11 +41,16 @@ install:
     - pip3 install coverage
     - pip3 install future
     - pip3 install pytest
-    - pip3 install pytest-mpi
     - pip3 install mpi4py
+    - pip3 install pytest-mpi
+#    - if [[ "$WITHMPI" != "no" ]]; then
+#        - pip3 install mpi4py
+#        - pip3 install pytest-mpi
+#      fi
+
 
 script:
-    - mpirun -n 6 python3 -m pytest --with-mpi -v
+    - mpirun -np 6 python3 -m pytest --with-mpi -v
 
 after_success:
     - coveralls
