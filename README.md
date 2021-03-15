@@ -61,9 +61,9 @@ mpirun -np 6 python3 basic.py
 ```
 
 This should produce a set of figures, under a folder called *results* similar to the one below:
-![Mode 0](readme/parallel_1d_mode0.png "Mode 0 -- Serial" | width = 250)
-![Mode 2](readme/parallel_1d_mode2.png "Mode 2 -- Serial" | width = 250)
-![Singular Values](readme/parallel_sv.png "Singular values -- Serial" | width = 250)
+<p align="center"> <img alt="Mode 0 -- Parallel" src="readme/parallel_1d_mode0.png" width="300" /> </p>
+<p align="center"> <img alt="Mode 0 -- Parallel" src="readme/parallel_1d_mode2.png" width="300" /> </p>
+<p align="center"> <img alt="Mode 0 -- Parallel" src="readme/parallel_sv.png" width="300" /> </p>
 
 ***Caution***: Due to differences in the parallel and serial versions of the algorithm, singular vectors may be "flipped". 
 An orthogonality check is also deployed for an additional sanity check.
