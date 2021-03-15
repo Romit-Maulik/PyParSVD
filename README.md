@@ -158,13 +158,13 @@ if ParSVD.rank == 0:
 
 ## Testing
 Regression tests are deployed using Travis CI, that is a continuous intergration framework. 
-You can check out the current status of **PySPOD** [here](https://travis-ci.org/mengaldo/PySPOD).
+You can check out the current status of **PyParSVD** [here](https://travis-ci.org/Romit-Maulik/PyParSVD).
 
 IF you want to run tests locally, you can do so by:
 
 ```bash
 > cd tests/
-> pytest -v
+> mpirun -np 6 python3 -m pytest --with-mpi -v
 ```
 
 
