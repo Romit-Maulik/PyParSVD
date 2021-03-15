@@ -60,8 +60,17 @@ You can then go to [**tutorials/basic/**](tutorials/basic/), and run
 mpirun -np 6 python3 basic.py
 ```
 
-This should produce a set of figures, under a folder called *results* similar to the one below:
+This should produce a set of figures, under a folder called *results* similar to the ones below
+
 <p align="center"> 
+  **Serial**
+  <img alt="Mode 0 -- Serial" src="readme/serial_1d_mode0.png" title="Mode 0 -- Serial" width="300" /> 
+  <img alt="Mode 2 -- Serial" src="readme/serial_1d_mode2.png" title="Mode 2 -- Serial" width="300" /> 
+  <img alt="Singular Values -- Serial" src="readme/serial_sv.png" title="Singular Values -- Serial" width="300" /> 
+</p>
+
+<p align="center"> 
+  **Parallel**
   <img alt="Mode 0 -- Parallel" src="readme/parallel_1d_mode0.png" title="Mode 0 -- Parallel" width="300" /> 
   <img alt="Mode 2 -- Parallel" src="readme/parallel_1d_mode2.png" title="Mode 2 -- Parallel" width="300" /> 
   <img alt="Singular Values -- Parallel" src="readme/parallel_sv.png" title="Singular Values -- Parallel" width="300" /> 
