@@ -32,22 +32,19 @@
 </p>
 
 
-This implementation allows for a singular value decomposition which is:
-1. Distributed using MPI4Py
-2. Streaming - data can be shown in batches to update the left singular vectors
-3. Randomized for further acceleration of any serial components of the overall algorithm.
+This library allows for a singular value decomposition (SVD) that is:
+1. *Distributed* using `MPI4Py`
+2. *Streaming* - data can be shown in batches to update the left singular vectors
+3. *Randomized* - further acceleration of any serial components of the overall algorithm.
 
-The streaming algorithm used in this implementation is available in:
-"Sequential Karhunen–Loeve Basis Extraction and its Application to Images" by Avraham Levy and Michael Lindenbaum. IEEE TRANSACTIONS ON IMAGE PROCESSING, VOL. 9, NO. 8, AUGUST 2000. This algorithm is implemented in `Online_SVD_Serial.py`.
+The streaming algorithm used in this library is from [(Levy and Lindenbaum 1998)](#Levy and Lindenbaum 1998), and its implementation can be found in [**pyparsvd/parsvd_parallel.py**](pyparsvd/parsvd_parallel.py).
 
-The distributed computation of the SVD follows the implementation in
-"Approximate partitioned method of snapshots for POD." by Wang, Zhu, Brian McBee, and Traian Iliescu. Journal of Computational and Applied Mathematics 307 (2016): 374-384. This algorithm is validated in `APMOS_Validation/`.
+The distributed computation of the SVD follows [(Wang et al 2016)](#Wang et al 2016). This algorithm is validated in `APMOS_Validation/`.
 
-The parallel QR algorithm (the TSQR method) required for the streaming feature may be found in
-"Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures." by Benson, Austin R., David F. Gleich, and James Demmel. 2013 IEEE international conference on big data. IEEE, 2013. This algorithm is validated in `Parallel_QR`.
+The parallel QR algorithm (the TSQR method) required for the streaming feature follows [(Benson et al 2013)](#Benson et al 2013). 
+This algorithm is validated in `Parallel_QR`.
 
-The randomized algorithm used to accelerate the computation of the serial SVD in partitioned method of snapshots may be found in
-"Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions." by Halko, Nathan, Per-Gunnar Martinsson, and Joel A. Tropp. SIAM review 53.2 (2011): 217-288.
+The randomized algorithm used to accelerate the computation of the serial SVD in partitioned method of snapshots follows [(Halko et al 20131](#Halko et al 2011)
 
 To enable this feature set `low_rank=True` for initializing the `online_svd_calculator` class object in `online_svd_parallel.py`
 
@@ -66,3 +63,30 @@ Example extractions of left singular vectors and singular values
 ![Comparison 3](readme/Figure_3.png "Singular values")
 
 Even the simple problem demonstrated here (8192 spatial points and 800 snapshots) achieves a dramatic acceleration in time to solution from serial to parallelized-streaming implementations (~25X). Note that the key advantage of the parallelized version is the lack of a data-transfer requirement in case this routine is being called from a simulation.
+
+
+
+## Testing
+Regression tests are deployed using Travis CI, that is a continuous intergration framework. 
+You can check out the current status of **PySPOD** [here](https://travis-ci.org/mengaldo/PySPOD).
+
+IF you want to run tests locally, you can do so by:
+
+```bash
+> cd tests/
+> pytest -v
+```
+
+## References
+
+#### (Levy and Lindenbaum 1998) 
+*Sequential Karhunen–Loeve Basis Extraction and its Application to Images.* [[DOI](https://ieeexplore.ieee.org/abstract/document/723422)]
+
+#### (Wang et al 2016) 
+*Approximate partitioned method of snapshots for POD.* [[DOI](https://www.sciencedirect.com/science/article/pii/S0377042715005774)]
+
+#### (Benson et al 2013)
+*Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures.* [[DOI](https://ieeexplore.ieee.org/document/6691583)]
+
+#### (Halko et al 2011) 
+*Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions.* [[DOI](https://epubs.siam.org/doi/abs/10.1137/090771806)]
