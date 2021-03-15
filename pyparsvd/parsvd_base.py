@@ -112,6 +112,18 @@ class ParSVD_Base(object):
 	# plotting methods
 	# ---------------------------------------------------------------------------
 
+	def plot_singular_values(self, idxs=[0], title='', figsize=(12,8), filename=None):
+		'''
+		See method implementation in the postprocessing module.
+		'''
+		post.plot_singular_values(
+			self.singular_values,
+			title=title,
+			figsize=figsize,
+			path=self._results_dir,
+			filename=filename,
+			rank=self.rank)
+
 	def plot_1D_modes(self, idxs=[0], title='', figsize=(12,8), filename=None):
 		'''
 		See method implementation in the postprocessing module.

@@ -4,6 +4,30 @@ import matplotlib.pyplot as plt
 
 
 
+
+def plot_singular_values(
+	singular_values, title="", figsize=(12,8),
+	path="CWD", filename=None, rank=None):
+
+	if rank is not None:
+		if rank == 0:
+			plt.figure(figsize=figsize)
+			plt.plot(singular_values)
+			plt.legend()
+			plt.title(title)
+			plt.xlabel('Domain')
+			plt.ylabel('U magnitude')
+
+			# save or show plots
+			if filename:
+				if path == 'CWD': path = CWD
+				plt.savefig(os.path.join(path, filename), dpi=200)
+				plt.close()
+			else:
+				plt.show()
+
+
+
 def plot_1D_modes(
 	modes, idxs=[0], title="", figsize=(12,8),
 	path="CWD", filename=None, rank=None, value='abs'):
