@@ -46,7 +46,7 @@ The **PyParSVD** library implements both a serial and a parallel singular value 
 2. **Streaming** - data can be shown in batches to update the left singular vectors;
 3. **Randomized** - further acceleration of any serial components of the overall algorithm.
 
-The **distributed** computation of the SVD follows [(Wang et al 2016)](#Wang et al 2016). The **streaming** algorithm used in this library is from [(Levy and Lindenbaum 1998)](#Levy and Lindenbaum 1998),  where the parallel QR algorithm (the TSQR method) required for the streaming feature follows [(Benson et al 2013)](#Benson et al 2013). Finally, the **randomized** algorithm follows [(Halko et al 20131](#Halko et al 2011).
+The **distributed** computation of the SVD follows [(Wang et al 2016)](#Wang-et-al-2016). The **streaming** algorithm used in this library is from [(Levy and Lindenbaum 1998)](#Levy-and-Lindenbaum 1998),  where the parallel QR algorithm (the TSQR method) required for the streaming feature follows [(Benson et al 2013)](#Benson-et-al-2013). Finally, the **randomized** algorithm follows [(Halko et al 20131](#Halko-et-al-2011).
 
 The library is organized using a base class, [**pyparsvd/parsvd_base.py**](pyparsvd/parsvd_base.py), that implements methods shared across the two derived classes, [**pyparsvd/parsvd_serial.py**](pyparsvd/parsvd_serial.py), and [**pyparsvd/parsvd_parallel.py**](pyparsvd/parsvd_parallel.py). The former implements the *serial SVD*, while the latter implements the *parallel SVD*. We also provide a module that implements some postprocessing utilities, [**pyparsvd/postprocessing.py**](pyparsvd/postprocessing.py), that can be used as a standalone package or directly called from the derived classes [**pyparsvd/parsvd_serial.py**](pyparsvd/parsvd_serial.py), and [**pyparsvd/parsvd_parallel.py**](pyparsvd/parsvd_parallel.py).
 
@@ -61,7 +61,11 @@ mpirun -np 6 python3 basic.py
 ```
 
 This should produce a set of figures, under a folder called *results* similar to the one below:
-![Mode 0](readme/parallel_1d_mode0.png "Mode 0")
+<figure class="image">
+  <img src="{{ readme/parallel_1d_mode0.png }}" alt="{{ Mode 0 - Serial }}">
+  <figcaption>{{ Mode 0 - Serial }}</figcaption>
+</figure>
+![Mode 0]( "Mode 0")
 ![Mode 2](readme/parallel_1d_mode2.png "Mode 2")
 ![Singular Values](readme/parallel_sv.png "Singular values")
 
