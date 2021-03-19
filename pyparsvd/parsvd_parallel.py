@@ -18,12 +18,28 @@ np.random.seed(10)
 
 class ParSVD_Parallel(ParSVD_Base):
 
+	"""
+	PyParSVD parallel class.
+
+	:param int K: number of modes to truncate.
+	:param int ff: forget factor.
+	:param bool low_rank: if True, it uses a low rank algorithm to speed up computations.
+	:param str results_dir: if specified, it saves the results in `results_dir`. \
+		Default save path is under a folder called `results` in current working path.
+	"""
+
 	def __init__(self, K, ff, low_rank=False, results_dir='results'):
 		super().__init__(K, ff, low_rank, results_dir)
 
 
 
 	def initialize(self, A):
+		"""
+		Initialize SVD computation with initial data.
+
+		:param ndarray A: initial data matrix.
+		"""
+
 		self.ulocal, self._singular_values = self.parallel_svd(A)
 		self._gather_modes()
 
@@ -32,6 +48,12 @@ class ParSVD_Parallel(ParSVD_Base):
 
 
 	def incorporate_data(self, A):
+		"""
+		Incorporate new data in a streaming way for SVD computation.
+
+		:param ndarray A: new data matrix.
+		"""
+
 		self._iteration += 1
 		ll = self._ff * np.matmul(self.ulocal, np.diag(self._singular_values))
 		ll = np.concatenate((ll, A), axis=-1)
@@ -145,6 +167,9 @@ class ParSVD_Parallel(ParSVD_Base):
 
 
 	def save(self):
+		"""
+		Save data.
+		"""
 		results_dir = os.path.join(CWD, self._results_dir)
 		if not os.path.exists(results_dir):
 			os.makedirs(results_dir)

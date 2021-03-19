@@ -14,12 +14,28 @@ np.random.seed(10)
 
 class ParSVD_Serial(ParSVD_Base):
 
+	"""
+	PyParSVD serial class. 
+
+	:param int K: number of modes to truncate.
+	:param int ff: forget factor.
+	:param bool low_rank: if True, it uses a low rank algorithm to speed up computations.
+	:param str results_dir: if specified, it saves the results in `results_dir`. \
+		Default save path is under a folder called `results` in current working path.
+	"""
+
 	def __init__(self, K, ff, low_rank=False, results_dir='results'):
 		super().__init__(K, ff, low_rank, results_dir)
 
 
 
 	def initialize(self, A):
+		"""
+		Initialize SVD computation with initial data.
+
+		:param ndarray A: initial data matrix.
+		"""
+
 		# Computing R-SVD of the initial matrix - step 1 section II
 		q, r = np.linalg.qr(A)
 
@@ -37,8 +53,11 @@ class ParSVD_Serial(ParSVD_Base):
 
 	def incorporate_data(self, A):
 		"""
-		A is the new data matrix
+		Incorporate new data in a streaming way for SVD computation.
+
+		:param ndarray A: new data matrix.
 		"""
+
 		# Section III B 3(a):
 		m_ap = self._ff * np.matmul(self._modes, np.diag(self._singular_values))
 		m_ap = np.concatenate((m_ap, A), axis=-1)
@@ -58,6 +77,10 @@ class ParSVD_Serial(ParSVD_Base):
 
 
 	def save(self):
+		"""
+		Save data.
+		"""
+
 		results_dir = os.path.join(CWD, self._results_dir)
 		if not os.path.exists(results_dir):
 			os.makedirs(results_dir)
