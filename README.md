@@ -18,7 +18,7 @@
 <!--   <a href="https://badge.fury.io/py/pyspod">
   <img src="https://badge.fury.io/py/pyspod.svg" alt="PyPI version" height="18">
 </a> -->
-<a href="https://travis-ci.com/mengaldo/PyParSVD" target="_blank">
+<a href="https://travis-ci.com/Romit-Maulik/PyParSVD" target="_blank">
   <img alt="Build Status" src="https://travis-ci.com/mengaldo/PyParSVD.svg?branch=main">	  
 </a>
 <!--    <a href="https://coveralls.io/github/mathLab/PySPOD" target="_blank">
@@ -46,7 +46,7 @@ The **PyParSVD** library implements both a serial and a parallel singular value 
 2. **Streaming** - data can be shown in batches to update the left singular vectors;
 3. **Randomized** - further acceleration of any serial components of the overall algorithm.
 
-The **distributed** computation of the SVD follows [(Wang et al 2016)](#Wang-et-al-2016). The **streaming** algorithm used in this library is from [(Levy and Lindenbaum 1998)](#Levy-and-Lindenbaum 1998),  where the parallel QR algorithm (the TSQR method) required for the streaming feature follows [(Benson et al 2013)](#Benson-et-al-2013). Finally, the **randomized** algorithm follows [(Halko et al 20131](#Halko-et-al-2011).
+The **distributed** computation of the SVD follows [(Wang et al 2016)](#Wang-et-al-2016). The **streaming** algorithm used in this library is from [(Levy and Lindenbaum 1998)](#Levy-and-Lindenbaum 1998),  where the parallel QR algorithm (the TSQR method) required for the streaming feature follows [(Benson et al 2013)](#Benson-et-al-2013). Finally, the **randomized** algorithm follows [(Halko et al 2013)](#Halko-et-al-2011).
 
 The library is organized using a base class, [**pyparsvd/parsvd_base.py**](pyparsvd/parsvd_base.py), that implements methods shared across the two derived classes, [**pyparsvd/parsvd_serial.py**](pyparsvd/parsvd_serial.py), and [**pyparsvd/parsvd_parallel.py**](pyparsvd/parsvd_parallel.py). The former implements the *serial SVD*, while the latter implements the *parallel SVD*. We also provide a module that implements some postprocessing utilities, [**pyparsvd/postprocessing.py**](pyparsvd/postprocessing.py), that can be used as a standalone package or directly called from the derived classes [**pyparsvd/parsvd_serial.py**](pyparsvd/parsvd_serial.py), and [**pyparsvd/parsvd_parallel.py**](pyparsvd/parsvd_parallel.py).
 
