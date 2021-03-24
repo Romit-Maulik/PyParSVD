@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Welcome to PyParSVD’s documentation! &mdash; PyParSVD 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> PyParSVD
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to PyParSVD’s documentation!</a></li>
+<li><a class="reference internal" href="#summary">Summary</a><ul>
+<li><a class="reference internal" href="#indices-and-table">Indices and table</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#parsvd-main-modules">ParSVD main modules</a><ul>
+<li><a class="reference internal" href="#parsvd-base-class">ParSVD base class</a></li>
+<li><a class="reference internal" href="#module-pyparsvd.parsvd_serial">ParSVD serial</a></li>
+<li><a class="reference internal" href="#module-pyparsvd.parsvd_parallel">ParSVD parallel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#postprocessing-module">Postprocessing module</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PyParSVD</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to PyParSVD’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-pyparsvd-s-documentation">
+<h1>Welcome to PyParSVD’s documentation!<a class="headerlink" href="#welcome-to-pyparsvd-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><p>The <strong>GitHub repository</strong> of this package can be found at <a class="reference external" href="https://github.com/Romit-Maulik/PyParSVD">PyParSVD</a> along installation instructions, and how to get started.</p></li>
+<li><p><strong>Tutorials</strong> can be found at <a class="reference external" href="https://github.com/Romit-Maulik/PyParSVD/tree/main/tutorials">PyParSVD-Tutorials</a></p></li>
+<li><p>The package uses <a class="reference external" href="https://travis-ci.com">Travis-CI</a> for <strong>continuous integration</strong>.</p></li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>PyParSVD</cite> library implements both a serial and a parallel singular value decomposition (SVD).
+The implementation of the library is conveniently:
+- Distributed using MPI4Py (for parallel SVD);
+- Streaming - data can be shown in batches to update the left singular vectors;
+- Randomized - further acceleration of any serial components of the overall algorithm.</p>
+<p>The <cite>PyParSVD</cite> library is organized following an abstract factory design pattern, where we define
+a base class in <cite>parsvd_base.py</cite>, called <cite>ParSVD_Base</cite> <a class="reference internal" href="#parsvd-base-class"><span class="std std-ref">ParSVD base class</span></a>, that implements
+functions and parameters available to all derived classes. In addition, it implements two abstract
+functions, <cite>initialize()</cite> and <cite>incorporate_data()</cite> which implementation must be provided by the
+derived classes.</p>
+<dl class="simple">
+<dt>The classes derived from the base class are the following:</dt><dd><ul class="simple">
+<li><p><cite>ParSVD_serial</cite> (implemented in <cite>parsvd_serial.py</cite>) <a class="reference internal" href="#module-pyparsvd.parsvd_serial"><span class="std std-ref">ParSVD serial</span></a></p></li>
+<li><p><cite>ParSVD_parallel</cite> (implemented in <cite>parsvd_parallel.py</cite>) <a class="reference internal" href="#module-pyparsvd.parsvd_parallel"><span class="std std-ref">ParSVD parallel</span></a></p></li>
+</ul>
+</dd>
+</dl>
+<p>These derived classes contain the actual implementation of two different different versions
+of SVD algorithms, one that is serial (<cite>parsvd_serial.py</cite>) and one that is parallel (<cite>parsvd_parallel.py</cite>).</p>
+<p><strong>It should be noted that the design pattern chosen allows for the
+easy addition of derived classes that can implement a new SVD versions.</strong></p>
+<p>The distributed (parallel) implementation of the SVD in <cite>parsvd_parallel.py</cite> follows
+<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0377042715005774">(Wang et al. 2016)</a>.
+The streaming algorithm used in the library for both <cite>parsvd_serial.py</cite> and <cite>parsvd_parallel.py</cite>
+is from <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/723422">(Levy and Lindenbaum 1998)</a>,
+where the parallel QR algorithm (the TSQR method) required for the streaming feature follows
+<a class="reference external" href="https://ieeexplore.ieee.org/document/6691583">(Benson et al. 2013)</a>.
+Finally, the randomized algorithm adopted in the library follows
+<a class="reference external" href="https://epubs.siam.org/doi/abs/10.1137/090771806">(Halko et al 2013)</a>.</p>
+<p>Additionally to these modules, we also provide some post-processing capabilities
+to visualize the results. These are implemented in <cite>postprocessing.py</cite> <a class="reference internal" href="#postprocessing-module"><span class="std std-ref">Postprocessing module</span></a>.
+The functions in post-processing can be accessed directly from the base class, and in particular
+from the <cite>ParSVD object</cite> returned by the <cite>initialize()</cite> and <cite>incorporate_data()</cite> function.
+They can also be accessed separately from the base class, as the post-processing module
+constitutes a standalone module. In practice, once you run an analysis, you can load the
+results at a later stage and use the post-processing module to visualize the results or
+you can implement you own visualization tools, that best suit your needs.</p>
+<div class="section" id="indices-and-table">
+<h2>Indices and table<a class="headerlink" href="#indices-and-table" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="parsvd-main-modules">
+<h1>ParSVD main modules<a class="headerlink" href="#parsvd-main-modules" title="Permalink to this headline">¶</a></h1>
+<p>The ParSVD main modules constitutes the backbone of the <cite>PyParSVD</cite> library.
+They are constituted by the base class:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>ParSVD_Base</cite> (implemented in <cite>parsvd_base.py</cite>) <a class="reference internal" href="#parsvd-base-class"><span class="std std-ref">ParSVD base class</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>along with its derived classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>ParSVD_serial</cite> (implemented in <cite>parsvd_serial.py</cite>) <a class="reference internal" href="#module-pyparsvd.parsvd_serial"><span class="std std-ref">ParSVD serial</span></a></p></li>
+<li><p><cite>ParSVD_parallel</cite> (implemented in <cite>parsvd_parallel.py</cite>) <a class="reference internal" href="#module-pyparsvd.parsvd_parallel"><span class="std std-ref">ParSVD parallel</span></a></p></li>
+</ul>
+</div></blockquote>
+<div class="section" id="parsvd-base-class">
+<h2>ParSVD base class<a class="headerlink" href="#parsvd-base-class" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>ParSVD base class</strong> is intended to hold functions that are shared
+by all derived classes. It follows an abstract factory design pattern.</p>
+<span class="target" id="module-pyparsvd.parsvd_base"></span><dl class="py class">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ParSVD_Base</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_base.html#ParSVD_Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>PyParSVD base class. It implements data and methods shared
+across the derived classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – number of modes to truncate.</p></li>
+<li><p><strong>ff</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – forget factor.</p></li>
+<li><p><strong>low_rank</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – if True, it uses a low rank algorithm to speed up computations.</p></li>
+<li><p><strong>results_dir</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, it saves the results in <cite>results_dir</cite>.            Default save path is under a folder called <cite>results</cite> in current working path.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.K">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">K</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.K" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of modes to truncate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>number of modes to truncate.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.comm">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">comm</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.comm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the parallel MPI Communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>comm.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MPI_Comm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.ff">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ff</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.ff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the forget factor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>forget factor.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.iteration">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">iteration</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of data incorporation performed          in the streaming data ingestion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>iterations.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.low_rank">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">low_rank</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.low_rank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the low rank behaviour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>low rank behaviour.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.modes">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">modes</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>modes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.n_modes">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n_modes</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.n_modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>number of modes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.nprocs">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">nprocs</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.nprocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number processors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>processors.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.plot_1D_modes">
+<code class="sig-name descname"><span class="pre">plot_1D_modes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_base.html#ParSVD_Base.plot_1D_modes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.plot_1D_modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>See method implementation in the postprocessing module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.plot_singular_values">
+<code class="sig-name descname"><span class="pre">plot_singular_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_base.html#ParSVD_Base.plot_singular_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.plot_singular_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>See method implementation in the postprocessing module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.rank">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">rank</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.rank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the parallel MPI Rank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>rank.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MPI_Rank</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_base.ParSVD_Base.singular_values">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">singular_values</span></code><a class="headerlink" href="#pyparsvd.parsvd_base.ParSVD_Base.singular_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the singular values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>singular values.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparsvd.parsvd_serial">
+<span id="parsvd-serial"></span><h2>ParSVD serial<a class="headerlink" href="#module-pyparsvd.parsvd_serial" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pyparsvd.parsvd_serial.ParSVD_Serial">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ParSVD_Serial</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_serial.html#ParSVD_Serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_serial.ParSVD_Serial" title="Permalink to this definition">¶</a></dt>
+<dd><p>PyParSVD serial class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – number of modes to truncate.</p></li>
+<li><p><strong>ff</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – forget factor.</p></li>
+<li><p><strong>low_rank</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – if True, it uses a low rank algorithm to speed up computations.</p></li>
+<li><p><strong>results_dir</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, it saves the results in <cite>results_dir</cite>.            Default save path is under a folder called <cite>results</cite> in current working path.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyparsvd.parsvd_serial.ParSVD_Serial.incorporate_data">
+<code class="sig-name descname"><span class="pre">incorporate_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_serial.html#ParSVD_Serial.incorporate_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_serial.ParSVD_Serial.incorporate_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Incorporate new data in a streaming way for SVD computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<em>ndarray</em>) – new data matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_serial.ParSVD_Serial.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_serial.html#ParSVD_Serial.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_serial.ParSVD_Serial.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize SVD computation with initial data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<em>ndarray</em>) – initial data matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_serial.ParSVD_Serial.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_serial.html#ParSVD_Serial.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_serial.ParSVD_Serial.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyparsvd.parsvd_parallel">
+<span id="parsvd-parallel"></span><h2>ParSVD parallel<a class="headerlink" href="#module-pyparsvd.parsvd_parallel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pyparsvd.parsvd_parallel.ParSVD_Parallel">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ParSVD_Parallel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_parallel.html#ParSVD_Parallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_parallel.ParSVD_Parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>PyParSVD parallel class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – number of modes to truncate.</p></li>
+<li><p><strong>ff</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – forget factor.</p></li>
+<li><p><strong>low_rank</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – if True, it uses a low rank algorithm to speed up computations.</p></li>
+<li><p><strong>results_dir</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, it saves the results in <cite>results_dir</cite>.            Default save path is under a folder called <cite>results</cite> in current working path.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pyparsvd.parsvd_parallel.ParSVD_Parallel.incorporate_data">
+<code class="sig-name descname"><span class="pre">incorporate_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_parallel.html#ParSVD_Parallel.incorporate_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_parallel.ParSVD_Parallel.incorporate_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Incorporate new data in a streaming way for SVD computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<em>ndarray</em>) – new data matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_parallel.ParSVD_Parallel.initialize">
+<code class="sig-name descname"><span class="pre">initialize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_parallel.html#ParSVD_Parallel.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_parallel.ParSVD_Parallel.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize SVD computation with initial data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<em>ndarray</em>) – initial data matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyparsvd.parsvd_parallel.ParSVD_Parallel.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/parsvd_parallel.html#ParSVD_Parallel.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.parsvd_parallel.ParSVD_Parallel.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="postprocessing-module">
+<h1>Postprocessing module<a class="headerlink" href="#postprocessing-module" title="Permalink to this headline">¶</a></h1>
+<p>The postprocessing module is intended to provide some limited support to post-process
+the data and results produced by <strong>pyparsvd</strong>. The key routines implemented are</p>
+<span class="target" id="module-pyparsvd.postprocessing"></span><dl class="py function">
+<dt id="pyparsvd.postprocessing.plot_1D_modes">
+<code class="sig-name descname"><span class="pre">plot_1D_modes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idxs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CWD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'abs'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/postprocessing.html#plot_1D_modes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.postprocessing.plot_1D_modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots modes of the SVD decomposition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modes</strong> (<em>ndarray</em>) – modes.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, title of the plot.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>(</em><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>)</em>) – size of the figure               (width,height). Default is (12,8).</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, the plot is saved                at <cite>path</cite>. Default is CWD.</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, the plot             is saved at <cite>filename</cite>. Default is None.</p></li>
+<li><p><strong>rank</strong> (<em>MPI_Rank</em>) – MPI rank for parallel SVD.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – whether to plot absolute              or real value of modes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyparsvd.postprocessing.plot_singular_values">
+<code class="sig-name descname"><span class="pre">plot_singular_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">singular_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CWD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyparsvd/postprocessing.html#plot_singular_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyparsvd.postprocessing.plot_singular_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots singular values of the SVD decomposition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>singular_values</strong> (<em>ndarray</em>) – singular values.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, title of the plot.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>(</em><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>)</em>) – size of the figure (width,height).               Default is (12,8).</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, the plot is saved at <cite>path</cite>.             Default is CWD.</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – if specified, the plot is saved at <cite>filename</cite>.             Default is None.</p></li>
+<li><p><strong>rank</strong> (<em>MPI_Rank</em>) – MPI rank for parallel SVD.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright 2020-2021 PyParSVD authors and contributors.
+      <span class="lastupdated">
+        Last updated on Mar 24, 2021.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

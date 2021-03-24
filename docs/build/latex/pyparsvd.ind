@@ -1,0 +1,73 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter C
+  \item \spxentry{comm()}\spxextra{ParSVD\_Base property}, \hyperpage{5}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{ff()}\spxextra{ParSVD\_Base property}, \hyperpage{5}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{incorporate\_data()}\spxextra{ParSVD\_Parallel method}, \hyperpage{7}
+  \item \spxentry{incorporate\_data()}\spxextra{ParSVD\_Serial method}, \hyperpage{7}
+  \item \spxentry{initialize()}\spxextra{ParSVD\_Parallel method}, \hyperpage{7}
+  \item \spxentry{initialize()}\spxextra{ParSVD\_Serial method}, \hyperpage{7}
+  \item \spxentry{iteration()}\spxextra{ParSVD\_Base property}, \hyperpage{5}
+
+  \indexspace
+  \bigletter K
+  \item \spxentry{K()}\spxextra{ParSVD\_Base property}, \hyperpage{5}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{low\_rank()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{modes()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+  \item \spxentry{module}
+    \subitem \spxentry{pyparsvd.parsvd\_base}, \hyperpage{5}
+    \subitem \spxentry{pyparsvd.parsvd\_parallel}, \hyperpage{7}
+    \subitem \spxentry{pyparsvd.parsvd\_serial}, \hyperpage{7}
+    \subitem \spxentry{pyparsvd.postprocessing}, \hyperpage{9}
+
+  \indexspace
+  \bigletter N
+  \item \spxentry{n\_modes()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+  \item \spxentry{nprocs()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{ParSVD\_Base}\spxextra{class in pyparsvd.parsvd\_base}, \hyperpage{5}
+  \item \spxentry{ParSVD\_Parallel}\spxextra{class in pyparsvd.parsvd\_parallel}, \hyperpage{7}
+  \item \spxentry{ParSVD\_Serial}\spxextra{class in pyparsvd.parsvd\_serial}, \hyperpage{7}
+  \item \spxentry{plot\_1D\_modes()}\spxextra{in module pyparsvd.postprocessing}, \hyperpage{9}
+  \item \spxentry{plot\_1D\_modes()}\spxextra{ParSVD\_Base method}, \hyperpage{6}
+  \item \spxentry{plot\_singular\_values()}\spxextra{in module pyparsvd.postprocessing}, 
+		\hyperpage{9}
+  \item \spxentry{plot\_singular\_values()}\spxextra{ParSVD\_Base method}, \hyperpage{6}
+  \item \spxentry{pyparsvd.parsvd\_base}
+    \subitem \spxentry{module}, \hyperpage{5}
+  \item \spxentry{pyparsvd.parsvd\_parallel}
+    \subitem \spxentry{module}, \hyperpage{7}
+  \item \spxentry{pyparsvd.parsvd\_serial}
+    \subitem \spxentry{module}, \hyperpage{7}
+  \item \spxentry{pyparsvd.postprocessing}
+    \subitem \spxentry{module}, \hyperpage{9}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{rank()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{save()}\spxextra{ParSVD\_Parallel method}, \hyperpage{7}
+  \item \spxentry{save()}\spxextra{ParSVD\_Serial method}, \hyperpage{7}
+  \item \spxentry{singular\_values()}\spxextra{ParSVD\_Base property}, \hyperpage{6}
+
+\end{sphinxtheindex}

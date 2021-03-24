@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyparsvd.parsvd_serial &mdash; PyParSVD 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyParSVD
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyParSVD</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyparsvd.parsvd_serial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyparsvd.parsvd_serial</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># import PyParSVD as base class for ParSVD_Parallel</span>
+<span class="kn">from</span> <span class="nn">pyparsvd.parsvd_base</span> <span class="k">import</span> <span class="n">ParSVD_Base</span>
+
+<span class="c1"># Current, parent and file paths</span>
+<span class="n">CWD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+<span class="c1"># Fix random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="ParSVD_Serial"><a class="viewcode-back" href="../../index.html#pyparsvd.parsvd_serial.ParSVD_Serial">[docs]</a><span class="k">class</span> <span class="nc">ParSVD_Serial</span><span class="p">(</span><span class="n">ParSVD_Base</span><span class="p">):</span>
+
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	PyParSVD serial class. </span>
+
+<span class="sd">	:param int K: number of modes to truncate.</span>
+<span class="sd">	:param int ff: forget factor.</span>
+<span class="sd">	:param bool low_rank: if True, it uses a low rank algorithm to speed up computations.</span>
+<span class="sd">	:param str results_dir: if specified, it saves the results in `results_dir`. \</span>
+<span class="sd">		Default save path is under a folder called `results` in current working path.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">low_rank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">results_dir</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">low_rank</span><span class="p">,</span> <span class="n">results_dir</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="ParSVD_Serial.initialize"><a class="viewcode-back" href="../../index.html#pyparsvd.parsvd_serial.ParSVD_Serial.initialize">[docs]</a>	<span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Initialize SVD computation with initial data.</span>
+
+<span class="sd">		:param ndarray A: initial data matrix.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># Computing R-SVD of the initial matrix - step 1 section II</span>
+		<span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+		<span class="c1"># Compute SVD of r - v is already transposed  - step 2 section II</span>
+		<span class="c1"># https://stackoverflow.com/questions/24913232/using-numpy-np-linalg-svd-for-singular-value-decomposition</span>
+		<span class="n">ui</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+		<span class="c1"># Get back U and truncate</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_modes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">ui</span><span class="p">)[:,:</span><span class="bp">self</span><span class="o">.</span><span class="n">_K</span><span class="p">]</span>  <span class="c1">#- step 3 section II</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">_K</span><span class="p">]</span>
+
+		<span class="k">return</span> <span class="bp">self</span></div>
+
+
+
+<div class="viewcode-block" id="ParSVD_Serial.incorporate_data"><a class="viewcode-back" href="../../index.html#pyparsvd.parsvd_serial.ParSVD_Serial.incorporate_data">[docs]</a>	<span class="k">def</span> <span class="nf">incorporate_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Incorporate new data in a streaming way for SVD computation.</span>
+
+<span class="sd">		:param ndarray A: new data matrix.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># Section III B 3(a):</span>
+		<span class="n">m_ap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_modes</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span><span class="p">))</span>
+		<span class="n">m_ap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">m_ap</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">udashi</span><span class="p">,</span> <span class="n">ddashi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">m_ap</span><span class="p">)</span>
+
+		<span class="c1"># Section III B 3(b):</span>
+		<span class="n">utildei</span><span class="p">,</span> <span class="n">dtildei</span><span class="p">,</span> <span class="n">vtildeti</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">ddashi</span><span class="p">)</span>
+
+		<span class="c1"># Section III B 3(c):</span>
+		<span class="n">max_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dtildei</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="bp">self</span><span class="o">.</span><span class="n">_K</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span> <span class="o">=</span> <span class="n">dtildei</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]</span>
+		<span class="n">utildei</span> <span class="o">=</span> <span class="n">utildei</span><span class="p">[:,</span><span class="n">max_idx</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_modes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">udashi</span><span class="p">,</span> <span class="n">utildei</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="bp">self</span></div>
+
+
+
+<div class="viewcode-block" id="ParSVD_Serial.save"><a class="viewcode-back" href="../../index.html#pyparsvd.parsvd_serial.ParSVD_Serial.save">[docs]</a>	<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Save data.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">results_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CWD</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_results_dir</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">results_dir</span><span class="p">):</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">results_dir</span><span class="p">)</span>
+		<span class="n">pathname_sv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+			<span class="n">results_dir</span><span class="p">,</span>
+			<span class="s1">&#39;serial_singular_values.npy&#39;</span><span class="p">)</span>
+		<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pathname_sv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span><span class="p">)</span>
+		<span class="n">pathname_m</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+			<span class="n">results_dir</span><span class="p">,</span>
+			<span class="s1">&#39;serial_POD.npy&#39;</span><span class="p">)</span>
+		<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pathname_m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modes</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_singular_values</span> <span class="o">=</span> <span class="n">pathname_sv</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_modes</span> <span class="o">=</span> <span class="n">pathname_m</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright 2020-2021 PyParSVD authors and contributors.
+      <span class="lastupdated">
+        Last updated on Mar 24, 2021.
+      </span>
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
