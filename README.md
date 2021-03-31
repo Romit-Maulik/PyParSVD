@@ -54,10 +54,17 @@ A simple case can be implementated following [**tutorials/basic.py**](tutorial/b
 ```bash
 python3 data_splitter.py
 ```
-
-You can then go to [**tutorials/basic/**](tutorials/basic/), and run
+You can then go to [**tutorials/basic/**](tutorials/basic/), and use the following to ensure that there is no shared-memory acceleration by numpy using
 ```bash
-mpirun -np 6 python3 basic.py
+export OPENBLAS_NUM_THREADS=1
+```
+Following this you may run the serial version of the streaming SVD using
+```bash
+python3 tutorial_basic_serial.py
+```
+and a parallel version of the same using
+```bash
+mpirun -np 6 python3 tutorial_basic_parallel.py
 ```
 
 This should produce a set of figures, under a folder called *results* similar to the ones below
@@ -79,7 +86,7 @@ This should produce a set of figures, under a folder called *results* similar to
 ***Caution***: Due to differences in the parallel and serial versions of the algorithm, singular vectors may be "flipped". 
 An orthogonality check is also deployed for an additional sanity check.
 
-The main components of the implementation in [**tutorials/basic.py**](tutorial/basic.py) are as follows
+The main components of the implementation are as follows
 
 - import of the libraries 
 ```python
@@ -93,7 +100,7 @@ from pyparsvd.parsvd_serial   import ParSVD_Serial
 from pyparsvd.parsvd_parallel import ParSVD_Parallel
 ```
 
-- instantiation of the serial and parallel SVD objects
+- instantiation of the serial and parallel SVD objects can be done respectively as
 ```python
 # Construct SVD objects
 SerSVD = ParSVD_Serial(K=10, ff=1.0)
@@ -155,6 +162,22 @@ if ParSVD.rank == 0:
 	ParSVD.plot_1D_modes(filename='parallel_1d_modes.png')
 ```
 
+## Parallel IO
+
+**PyParSVD** also comes with parallel-IO capability by virtue of h5py and parallel-HDF5. Ensure adequate availability of requisite libraries - the easiest way is to use conda as follows (otherwise installing can get a bit tricky)
+```bash
+conda install -c conda-forge "h5py>=2.9=mpi*"
+```
+Once this step is complete you can run the parallel-IO tutorial in [**tutorials/parallel_io/**](tutorial/parallel_io/) using
+```bash
+python data_splitter.py
+```
+from [**tutorials/parallel_io/data/**](tutorials/parallel_io/data/) and then executing
+
+```bash
+mpirun -np 6 python tutorial_parallel_io.py
+```
+from [**tutorials/parallel_io/**](tutorials/parallel_io/). In this example - it is assumed that your data is in h5 format.
 
 ## Testing
 Regression tests are deployed using Travis CI, that is a continuous intergration framework. 
@@ -166,7 +189,6 @@ IF you want to run tests locally, you can do so by:
 > cd tests/
 > mpirun -np 6 python3 -m pytest --with-mpi -v
 ```
-
 
 ## References
 
