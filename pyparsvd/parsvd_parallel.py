@@ -19,12 +19,28 @@ np.random.seed(10)
 
 class ParSVD_Parallel(ParSVD_Base):
 
+    """
+    PyParSVD parallel class.
+
+    :param int K: number of modes to truncate.
+    :param int ff: forget factor.
+    :param bool low_rank: if True, it uses a low rank algorithm to speed up computations.
+    :param str results_dir: if specified, it saves the results in `results_dir`. \
+        Default save path is under a folder called `results` in current working path.
+    """
+
     def __init__(self, K, ff, low_rank=False, results_dir='results'):
         super().__init__(K, ff, low_rank, results_dir)
 
-
     def initialize(self, A, dataset=None):
 
+        """
+        Initialize SVD computation with initial data.
+
+        :param ndarray/str A: initial data matrix or string of h5 file
+
+        :param str dataset: name of dataset in h5 file
+        """
         if isinstance(A,str) == True and isinstance(dataset,str) == True and '.h5' in A:
             A = np.asarray(self.load_h5(A,dataset))
             self.hd_f.close()
@@ -40,6 +56,12 @@ class ParSVD_Parallel(ParSVD_Base):
 
 
     def incorporate_data(self, A, dataset=None):
+        """
+        Incorporate new data in a streaming way for SVD computation.
+
+        :param ndarray/str A: new data matrix or string of h5 file.
+        :param std dataset: name of dataset in h5 file.
+        """
 
         if isinstance(A,str) == True and isinstance(dataset,str) == True and '.h5' in A:
             A = np.asarray(self.load_h5(A,dataset))
@@ -176,6 +198,9 @@ class ParSVD_Parallel(ParSVD_Base):
 
 
     def save(self):
+        """
+        Save data.
+        """
         results_dir = os.path.join(CWD, self._results_dir)
         if not os.path.exists(results_dir):
             os.makedirs(results_dir)
