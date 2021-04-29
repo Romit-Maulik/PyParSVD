@@ -1,6 +1,9 @@
-# h5 files
+# data files
 *.h5
+*.nc
 
+# theta logs
+*.cobaltlog
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

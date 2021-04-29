@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from mpi4py import MPI
+from netCDF4 import Dataset
 import h5py
 
 # import PyParSVD as base class for ParSVD_Parallel
@@ -32,45 +33,25 @@ class ParSVD_Parallel(ParSVD_Base):
     def __init__(self, K, ff, low_rank=False, results_dir='results'):
         super().__init__(K, ff, low_rank, results_dir)
 
-    def initialize(self, A, dataset=None):
+    def initialize(self, A):
 
         """
         Initialize SVD computation with initial data.
 
-        :param ndarray/str A: initial data matrix or string of h5 file
-
-        :param str dataset: name of dataset in h5 file
-        """
-        if isinstance(A,str) == True and isinstance(dataset,str) == True and '.h5' in A:
-            A = np.asarray(self.load_h5(A,dataset))
-            self.hd_f.close()
-
-        elif isinstance(A,str) == True and '.h5' not in A:
-            print('Cannot read non-h5 file for parallel IO')
-            raise ValueError('Failure')
-        
+        :param ndarray/str A: initial data matrix
+        """        
         self.ulocal, self._singular_values = self.parallel_svd(A)
         self._gather_modes()
 
         return self
 
 
-    def incorporate_data(self, A, dataset=None):
+    def incorporate_data(self, A):
         """
         Incorporate new data in a streaming way for SVD computation.
 
-        :param ndarray/str A: new data matrix or string of h5 file.
-        :param std dataset: name of dataset in h5 file.
+        :param ndarray/str A: new data matrix.
         """
-
-        if isinstance(A,str) == True and isinstance(dataset,str) == True and '.h5' in A:
-            A = np.asarray(self.load_h5(A,dataset))
-            self.hd_f.close()
-
-        elif isinstance(A,str) == True and '.h5' not in A:
-            print('Cannot read non-h5 file for parallel IO')
-            raise ValueError('Failure')
-
         self._iteration += 1
         ll = self._ff * np.matmul(self.ulocal, np.diag(self._singular_values))
         ll = np.concatenate((ll, A), axis=-1)
@@ -79,22 +60,6 @@ class ParSVD_Parallel(ParSVD_Base):
         self._gather_modes()
 
         return self
-
-
-    def load_h5(self, A, dataset):
-        '''
-        We need to load an h5 file in parallel
-        '''
-        self.hd_f = h5py.File(A, 'r', driver='mpio', comm=self.comm)
-        dset = self.hd_f[dataset]
-        ndof=dset.shape[0]
-
-        num_rows_rank = int(ndof/self.nprocs)
-
-        if self.rank != self.nprocs-1:
-            return dset[self.rank*num_rows_rank:(self.rank+1)*num_rows_rank,:]
-        else:
-            return dset[self.rank*num_rows_rank:,:]
 
     def parallel_qr(self, A):
 
@@ -153,7 +118,7 @@ class ParSVD_Parallel(ParSVD_Base):
 
     def parallel_svd(self, A):
 
-        vlocal, slocal = generate_right_vectors(A)
+        vlocal, slocal = generate_right_vectors(A,self._K)
 
         # Find Wr
         wlocal = np.matmul(vlocal, np.diag(slocal).T)
@@ -230,7 +195,7 @@ class ParSVD_Parallel(ParSVD_Base):
 
 
 
-def generate_right_vectors(A):
+def generate_right_vectors(A,K):
     """
     Method of snapshots.
 
@@ -243,10 +208,10 @@ def generate_right_vectors(A):
     w, v = np.linalg.eig(new_mat)
 
     svals = np.sqrt(np.abs(w))
-    rval = np.argmax(svals < 0.0001) # eps0
+    # rval = np.argmax(svals < 0.0001) # eps0
 
     # Covariance eigenvectors, singular values
-    return v[:,:rval], np.sqrt(np.abs(w[:rval]))
+    return v[:,:K], np.sqrt(np.abs(w[:K]))
 
 
 

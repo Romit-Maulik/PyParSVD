@@ -2,6 +2,8 @@ import os
 import sys
 import time
 import numpy as np
+from mpi4py import MPI
+from netCDF4 import Dataset
 
 # Current, parent and file paths
 CWD = os.getcwd()
@@ -13,35 +15,67 @@ sys.path.append(os.path.join("../../"))
 from pyparsvd.parsvd_serial   import ParSVD_Serial
 from pyparsvd.parsvd_parallel import ParSVD_Parallel
 
-# Construct SVD objects
-ParSVD = ParSVD_Parallel(K=10, ff=1.0, low_rank=True)
+# Initialize MPI
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+nprocs = comm.Get_size()
 
-# Path to data
-path = os.path.join(CFD, './data/')
+def load_nc(A,comm,rank,nprocs,dataset):
+    '''
+    We need to load an nc file in parallel
+    '''
+    nc_file = Dataset(A,'r',format='NETCDF4',parallel=True)        
 
-# Batchwise data - note these are h5 files and do not need the "np.load"
-initial_data = os.path.join(path, 'era5_0.h5') # Needs to be generated (dofs x snapshots)
-new_data = os.path.join(path, 'era5_1.h5')
-newer_data = os.path.join(path, 'era5_2.h5')
-newest_data = os.path.join(path, 'era5_3.h5')
+    if rank != nprocs-1:
+        
+        num_rows_rank = int(nc_file[dataset].shape[1]/nprocs)
+        num_cols_rank = int(nc_file[dataset].shape[2]/nprocs)
 
-# Do first modal decomposition -- Parallel
-s = time.time()
-ParSVD.initialize(initial_data,dataset='dataset')
+        rval =  nc_file[dataset][:,
+                                rank*num_rows_rank:(rank+1)*num_rows_rank,
+                                rank*num_cols_rank:(rank+1)*num_cols_rank
+                                ].reshape(-1,num_rows_rank*num_cols_rank).T
+        
+    else:
+        
+        num_rows_rank = int(nc_file[dataset].shape[1]/nprocs)
+        num_rows_local = nc_file[dataset].shape[1] - rank*num_rows_rank
+        
+        num_cols_rank = int(nc_file[dataset].shape[2]/nprocs)
+        num_cols_local = nc_file[dataset].shape[2] - rank*num_cols_rank
 
-# Incorporate new data -- Parallel
-ParSVD.incorporate_data(new_data,dataset='dataset')
-ParSVD.incorporate_data(newer_data,dataset='dataset')
-ParSVD.incorporate_data(newest_data,dataset='dataset')
-if ParSVD.rank == 0: print('Elapsed time PARALLEL: ', time.time() - s, 's.')
+        rval =  nc_file[dataset][:,
+                                rank*num_rows_rank:,
+                                rank*num_cols_rank:].reshape(-1,num_rows_local*num_cols_local).T
 
-# Basic postprocessing
-if ParSVD.rank == 0:
+    nc_file.close()
+    return rval.filled()
 
-    # Save results
-    ParSVD.save()
+if __name__ == '__main__':
 
-    # Visualize singular values and modes modes
-    ParSVD.plot_singular_values(filename='parallel_sv.png')
-    ParSVD.plot_1D_modes(filename='parallel_1d_mode0.png')
-    ParSVD.plot_1D_modes(filename='parallel_1d_mode2.png', idxs=[2])
+    # Construct SVD objects
+    ParSVD = ParSVD_Parallel(K=10, ff=1.0, low_rank=True)
+
+    # Path to data
+    data_path = os.path.join(CFD, './data/download.nc')
+
+    # Data from nc file
+    initial_data = load_nc(data_path,comm,rank,nprocs,'sp')
+
+    # Do first modal decomposition -- Parallel
+    s = time.time()
+    ParSVD.initialize(initial_data)
+
+    # Incorporate new data -- Parallel
+    if ParSVD.rank == 0: print('Elapsed time PARALLEL: ', time.time() - s, 's.')
+
+    # Basic postprocessing
+    if ParSVD.rank == 0:
+
+        # Save results
+        ParSVD.save()
+
+        # Visualize singular values and modes modes
+        ParSVD.plot_singular_values(filename='parallel_sv.png')
+        ParSVD.plot_1D_modes(filename='parallel_1d_mode0.png')
+        ParSVD.plot_1D_modes(filename='parallel_1d_mode2.png', idxs=[2])
