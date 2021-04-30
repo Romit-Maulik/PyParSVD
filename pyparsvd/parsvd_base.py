@@ -203,4 +203,20 @@ class ParSVD_Base(object):
 			filename=filename,
 			rank=self.rank)
 
+	def plot_2D_modes(self,num_rows,num_cols, idxs=[0], title='', figsize=(12,8), filename=None):
+		"""
+		See method implementation in the postprocessing module.
+		"""
+		post.plot_2D_modes(
+			self.modes,
+			num_rows,
+			num_cols,
+			self._nprocs,
+			idxs=idxs,
+			title=title,
+			figsize=figsize,
+			path=self._results_dir,
+			filename=filename,
+			rank=self.rank)
+
 	# ---------------------------------------------------------------------------

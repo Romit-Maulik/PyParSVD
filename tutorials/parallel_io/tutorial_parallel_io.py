@@ -54,7 +54,7 @@ if __name__ == '__main__':
     newest_data = load_h5(data_path,comm,rank,nprocs,'dataset')
 
     # Construct SVD objects
-    ParSVD = ParSVD_Parallel(K=10, ff=1.0, low_rank=False)
+    ParSVD = ParSVD_Parallel(K=20, ff=1.0, low_rank=False)
 
     # Do first modal decomposition -- Parallel
     s = time.time()

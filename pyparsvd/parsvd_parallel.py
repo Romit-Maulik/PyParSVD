@@ -185,7 +185,6 @@ class ParSVD_Parallel(ParSVD_Base):
 
     def _gather_modes(self):
         # Gather modes at rank 0
-        # This is automatically in order
         modes_global = self.comm.gather(self.ulocal, root=0)
         if self.rank == 0:
             self._modes = modes_global[0]
