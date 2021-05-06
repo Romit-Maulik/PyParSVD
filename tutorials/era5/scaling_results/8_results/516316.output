@@ -1,0 +1,4 @@
+Running Cobalt Job 516316.
+Elapsed time PARALLEL:  2147.4359147548676 s.
+Using  8 ranks
+Application 23024856 resources: utime ~14318s, stime ~5229s, Rss ~55933876, inblocks ~595675566, outblocks ~0

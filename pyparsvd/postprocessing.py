@@ -119,8 +119,12 @@ def plot_2D_modes(
 				for idx in idxs:
 					plot_data = np.abs(modes[:dpr, idx]).reshape(num_rows,-1)
 					for rank in range(1,num_ranks):
-						temp_data = np.abs(modes[rank*dpr:(rank+1)*dpr, idx]).reshape(num_rows,-1)
-						plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
+						if rank !=num_ranks-1:
+							temp_data = np.abs(modes[rank*dpr:(rank+1)*dpr, idx]).reshape(num_rows,-1)
+							plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
+						else:
+							temp_data = np.abs(modes[rank*dpr:, idx]).reshape(num_rows,-1)
+							plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
 
 					plt.imshow(plot_data)
 						
@@ -130,8 +134,12 @@ def plot_2D_modes(
 				for idx in idxs:
 					plot_data = np.real(modes[:dpr, idx]).reshape(num_rows,-1)
 					for rank in range(1,num_ranks):
-						temp_data = np.abs(modes[rank*dpr:(rank+1)*dpr, idx]).reshape(num_rows,-1)
-						plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
+						if rank !=num_ranks-1:
+							temp_data = np.real(modes[rank*dpr:(rank+1)*dpr, idx]).reshape(num_rows,-1)
+							plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
+						else:
+							temp_data = np.real(modes[rank*dpr:, idx]).reshape(num_rows,-1)
+							plot_data = np.concatenate((plot_data,temp_data),axis=-1) # Stencil decomposition
 
 					plt.imshow(plot_data)
 

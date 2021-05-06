@@ -59,7 +59,7 @@ if __name__ == '__main__':
     ParSVD = ParSVD_Parallel(K=10, ff=1.0, low_rank=True)
 
     # Path to data
-    data_path = os.path.join(CFD, './data/download_light.nc')
+    data_path = os.path.join(CFD, './data/download.nc')
 
     # Data from nc file
     initial_data = load_nc(data_path,comm,rank,nprocs,'sp')
